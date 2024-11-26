@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://bjjwofj5dbo6p"]
+
+[ext_resource type="Script" path="res://scenes/player/player.gd" id="1_dgqfd"]
+[ext_resource type="Texture2D" uid="uid://dd0m1trwsiko6" path="res://art/playerGrey_up1.png" id="2_3q8bi"]
+[ext_resource type="Texture2D" uid="uid://5eyqj4gyyddj" path="res://art/playerGrey_up2.png" id="3_e17r3"]
+[ext_resource type="Texture2D" uid="uid://blhlq7b5rcaje" path="res://art/playerGrey_walk1.png" id="4_y6wuo"]
+[ext_resource type="Texture2D" uid="uid://5u808ymsmpk0" path="res://art/playerGrey_walk2.png" id="5_ih5nj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ilvq"]
+atlas = ExtResource("2_3q8bi")
+region = Rect2(0, 0, 108, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ov4qy"]
+atlas = ExtResource("3_e17r3")
+region = Rect2(0, 0, 111, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3pin"]
+atlas = ExtResource("4_y6wuo")
+region = Rect2(0, 0, 108, 135)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_talld"]
+atlas = ExtResource("5_ih5nj")
+region = Rect2(0, 0, 107, 127)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ejspj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ilvq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ov4qy")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3pin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_talld")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q3e2u"]
+radius = 27.0
+height = 68.0
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_dgqfd")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ejspj")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_q3e2u")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
